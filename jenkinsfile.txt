@@ -1,0 +1,23 @@
+pipeline{
+    
+    agent any
+    
+    stages{
+        stage('Clone the repo')
+        {
+            steps{
+                git branch: 'main', url: 'https://github.com/NandanaAsha/Devops-final-project.git'
+            }
+        }
+        
+        stage('Execute Playbook')
+        {
+            steps{
+                ansiblePlaybook credentialsId: 'ansiblehost', disableHostKeyChecking: true, installation: 'myansible', inventory: 'hostfile.inv', playbook: 'Ansible_playbook.yml', vaultTmpPath: ''
+            }
+        }
+        
+    }
+    
+    
+}
